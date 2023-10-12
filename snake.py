@@ -4,14 +4,10 @@ from random import randint
 from time import sleep
 
 pygame.init()
-'''pygame.font.init()'''
-largura = 480
-altura = 640
+largura, altura = 480, 640
 tela = pygame.display.set_mode((largura, altura))
 
-x_cobra = 20
-y_cobra = 20
-
+x_cobra, y_cobra = 20
 
 x_maçã = 60
 y_maçã = 20
@@ -24,12 +20,6 @@ dado = 'Você Perdeu'
 tamanho = 5
 
 corpo_cobra = []
-
-def aumentar_tamanho_da_cobra(cabeça):
-    global corpo_cobra, cobra
-    for xy in corpo_cobra:
-        cobra = pygame.draw.rect(tela, (0, 255, 0), (xy[0], xy[1], 20, 20))
-    
 
 relogio = pygame.time.Clock()
 while True:
@@ -72,13 +62,9 @@ while True:
     cabeça_cobra.append(y_cobra)
     if cabeça_cobra in corpo_cobra:
         while True:
-            cabeça_cobra = []
-            corpo_cobra = []
-            tamanho = 5
-            x_cobra = 20
-            y_cobra = 20
-            x_maçã = 60
-            y_maçã = 20
+            cabeça_cobra.clear()
+            corpo_cobra.clear()
+            tamanho, x_cobra, y_cobra, x_maçã, y_maçã = 5, 20, 20, 60, 20
             tela.fill((255, 255, 255))
             relogio.tick(30)
             fonte = pygame.font.SysFont('arial', 40, True, True)
@@ -89,11 +75,9 @@ while True:
                     exit()
             tela.blit(texto, (100, altura//2))
             pygame.display.flip()
-            
-        
+
     corpo_cobra.append(cabeça_cobra)
 
-    
     if x_cobra == largura:
         x_cobra = 20
     if y_cobra == altura:
@@ -114,7 +98,5 @@ while True:
 
     if len(corpo_cobra) >= tamanho:
        del corpo_cobra[0] 
-    aumentar_tamanho_da_cobra(corpo_cobra)
+    cobra = [pygame.draw.rect(tela, (0, 255, 0), (xy[0], xy[1], 20, 20)) for xy in corpo_cobra]
     pygame.display.flip()
-
-
